@@ -6,28 +6,29 @@ let listeCoef = []
 let listeMatieres = []
 const notUsed = ["TRONC COMMUN", "SPECIALITÉS", "OPTIONS"]
 
-function calcMoyenne (moyennes, coefs){
+function calcMoyenne(moyennes, coefs) {
   let moyenneG = 0
   let coefG = 0
   moyennes.forEach((moyenne, index) => {
-    moyenneG += moyenne * listeCoef[index] 
+    moyenneG += moyenne * listeCoef[index]
   })
   coefs.forEach((coef) => {
     coefG += coef
   })
-  return (Math.round(moyenneG / coefG * 100)/100)
+  return (Math.round(moyenneG / coefG * 100) / 100)
 }
 
 function App() {
   const [id, setLogin] = useState("")
-  const [pwd, setPassword] = useState("")
-  const [token, setToken] = useState(undefined)
   const [code, setCode] = useState(undefined)
+  const [token, setToken] = useState(undefined)
+  const [pwd, setPassword] = useState("")
   const [userId, setUserId] = useState(undefined)
-  const [listeEleves, setListeEleves] = useState([])
-  const [listePeriodes, setListePeriodes] = useState([])
   const [loading, setLoading] = useState(false)
   const [moyenneG, setMoyenneG] = useState(undefined)
+  const [listeEleves, setListeEleves] = useState([])
+  const [showMoyenne, setShowMoyenne] = useState(false)
+  const [listePeriodes, setListePeriodes] = useState([])
   useEffect(() => {
     const token = localStorage.getItem("token")
     if (token) setToken(token)
@@ -100,7 +101,6 @@ function App() {
 
   function moyenneCalc(trimestre) {
     listeMatieres = listePeriodes[trimestre]["ensembleMatieres"]["disciplines"].filter((matiere) => !notUsed.includes(matiere["discipline"]))
-    console.log(listeMatieres)
     listeMoyenne = []
     listeCoef = []
     listeMatieres.forEach((matiere) => {
@@ -110,6 +110,7 @@ function App() {
       }
     })
     setMoyenneG(calcMoyenne(listeMoyenne, listeCoef))
+    setShowMoyenne(true)
   }
 
 
@@ -117,6 +118,7 @@ function App() {
   function Disconnect() {
     setLogin("")
     setPassword("")
+    setShowMoyenne(false)
     setToken(undefined)
     setListeEleves([])
     setListePeriodes([])
@@ -124,15 +126,17 @@ function App() {
     localStorage.removeItem("eleves")
     localStorage.removeItem("periodes")
   }
+
   return (
     <>
       {token && <div onClick={Disconnect} style={{ textAlign: "right", marginTop: "1%", marginRight: "1.5%" }}>
-        <input type="button" value="disconnect" style={{ fontSize: "0.8em", color: "white", background: "none", width: "15%", borderWidth: "3px", borderStyle: "solid", borderColor: "#eef7ff", borderRadius: "15px", outline: "none", cursor: "pointer" }} />
+        <input type="button" value="disconnect" style={{ fontSize: "0.8em", color: "white", background: "none", width: "15%", minWidth: 93, borderWidth: "3px", borderStyle: "solid", borderColor: "#eef7ff", borderRadius: "15px", outline: "none", cursor: "pointer" }} />
       </div>}
 
 
       {!token && <div className="container" style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", padding: "0px", margin: "0px" }}>
         <div className="login-box" style={{ padding: "20px", borderWidth: "1px", borderStyle: "solid", borderColor: "grey", borderRadius: "10px" }}>
+          <h1 style={{ margin: "5px", marginBottom: "30px", padding: "0px", textAlign: "center" }}>Connexion</h1>
           <form onSubmit={handleSubmit}>
             <div style={{ width: "100%" }}>
               <label htmlFor="email">Identifiant :</label>
@@ -154,11 +158,12 @@ function App() {
           Une erreur s'est produite.
         </p>
       </div>}
-      {localStorage.getItem("eleves") && !localStorage.getItem("periodes") && <div className="choix-compte" id="choix-compte" style={{ minWidth: 125, position: "absolute", top: "auto", left: "37.5%", border: "1px grey solid", width: "25%", height: "auto", transform: "translateY(75%)", overflowX: "hidden", borderRadius: "10px" }}>
+      {localStorage.getItem("eleves") && !localStorage.getItem("periodes") && <div className="choix-compte" id="choix-compte" style={{ minWidth: 260, position: "absolute", top: "auto", left: "32.5%", border: "1px grey solid", width: "35%", height: "auto", transform: "translateY(75%)", overflowX: "hidden", borderRadius: "10px" }}>
         <form onSubmit={handleSubmitId}>
+          <h3 style={{ fontSize: 30, margin: "5px", marginBottom: "30px", padding: "0px", textAlign: "center" }}>Choisissez votre compte</h3>
           {listeEleves.map((eleve) => <div key={eleve.id} style={{ top: "auto", left: "50%", width: "25%", height: "30%" }}>
-            <input className="userIdButton" type="radio" id={eleve.id} value={eleve.id} name="eleves" style={{ margin: "5px", display: "inlineBlock", WebkitAppearance: "none", appearance: "none", margin: 0, font: "inherit", color: "lightblue", width: "1.15em", height: "1.15em", border: "0.15em solid currentColor", borderRadius: "50%", display: "grid", placeContent: "center" }} onChange={(event) => setUserId(event.target.value)} />
-            <label style={{ transform: "translateX(20px)", fontWeight: "bold", display: "grid", gridTemplateColumns: "1em auto", gap: "1em" }} htmlFor={eleve.id}>{eleve.prenom}</label>
+            <input className="userIdButton" type="radio" id={eleve.id} value={eleve.id} name="eleves" style={{ WebkitAppearance: "none", appearance: "none", margin: 10, font: "inherit", color: "lightblue", width: "1.15em", height: "1.15em", border: "0.15em solid currentColor", borderRadius: "50%", display: "grid", placeContent: "center" }} onChange={(event) => setUserId(event.target.value)} />
+            <label style={{ transform: "translateX(20px)", fontWeight: "bold", display: "grid", marginLeft: 25 }} htmlFor={eleve.id}>{eleve.prenom}</label>
           </div>)}
           <div style={{ textAlign: "center" }}>
             {loading ? <p style={{ fontSize: "1.2em", color: "white", background: "none", width: "100%", borderWidth: "3px", borderStyle: "solid", borderColor: "#eef7ff", borderRadius: "15px", outline: "none", cursor: "pointer" }}>loading ...</p> : <input type="submit" value="Envoyer" style={{ fontSize: "1.2em", color: "white", background: "none", width: "90%", borderWidth: "3px", borderStyle: "solid", borderColor: "#eef7ff", borderRadius: "15px", outline: "none", cursor: "pointer", margin: 5, marginTop: 30 }} />}
@@ -171,8 +176,8 @@ function App() {
           <label style={{}} htmlFor={index}>{periodes.periode}</label>
         </div>)}
       </div>
-      <p>
-        {!!moyenneG ? moyenneG : 'Aucune moyenne'}
+      <p style={{textAlign: "center", fontSize: 70}}>
+        {!!showMoyenne && (!!moyenneG ? moyenneG : 'Aucune moyenne')}
       </p>
     </>
   )
