@@ -176,6 +176,9 @@ function App() {
           <label style={{}} htmlFor={index}>{periodes.periode}</label>
         </div>)}
       </div>
+      <p>
+        VOtre moyenne est de :
+      </p>
       <p style={{textAlign: "center", fontSize: 70}}>
         {!!showMoyenne && (!!moyenneG ? moyenneG : 'Aucune moyenne')}
       </p>
