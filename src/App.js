@@ -113,6 +113,11 @@ function App() {
     setShowMoyenne(true)
   }
 
+  function BTCprice() {
+    var timestamp = Math.round(new Date().getTime() / 1000)
+    console.log(timestamp)
+  }
+
   function Disconnect() {
     setLogin("")
     setPassword("")
@@ -127,6 +132,10 @@ function App() {
 
   return (
     <>
+      {!token && <div onClick={BTCprice} style={{ textAlign: "left", marginTop: "1%", marginLeft: "1.5%" }}>
+        <input type="button" value="prix BTC" style={{ fontSize: "0.8em", color: "white", background: "none", width: "15%", minWidth: 93, maxWidth : 93, borderWidth: "3px", borderStyle: "solid", borderColor: "#eef7ff", borderRadius: "15px", outline: "none", cursor: "pointer" }} />
+      </div>}
+
       {token && <div onClick={Disconnect} style={{ textAlign: "right", marginTop: "1%", marginRight: "1.5%" }}>
         <input type="button" value="disconnect" style={{ fontSize: "0.8em", color: "white", background: "none", width: "15%", minWidth: 93, maxWidth : 110, borderWidth: "3px", borderStyle: "solid", borderColor: "#eef7ff", borderRadius: "15px", outline: "none", cursor: "pointer" }} />
       </div>}
