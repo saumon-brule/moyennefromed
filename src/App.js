@@ -114,20 +114,8 @@ function App() {
   }
 
   function BTCprice() {
-    var startTime = Math.round(new Date().getTime() / 1000)
-    let url = "https://pts.igms.io/api/v2/coins/historical/BTC?base=EUR&interval=5m&start=" + String(startTime)
-    let init = {
-      "method": "GET"
-    }
-    fetch(url, init)
-      .then((response) => {
-        return response.json()
-      })
-      .then((data) => {
-        priceBTCNow = Number(response["data"]["quotes"][lenght(response["data"]["quotes"]) - 1]["c"])
-        alert(`le prix du BTC actuellement est de ${priceBTCNow}€`)
-      })
-
+    var timestamp = Math.round(new Date().getTime() / 1000)
+    console.log(timestamp)
   }
 
   function Disconnect() {
