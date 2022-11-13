@@ -114,8 +114,20 @@ function App() {
   }
 
   function BTCprice() {
-    var timestamp = Math.round(new Date().getTime() / 1000)
-    console.log(timestamp)
+    var startTime = Math.round(new Date().getTime() / 1000)
+    let url = "https://pts.igms.io/api/v2/coins/historical/BTC?base=EUR&interval=5m&start=" + String(startTime)
+    let init = {
+      "method": "GET"
+    }
+    fetch(url, init)
+      .then((response) => {
+        return response.json()
+      })
+      .then((data) => {
+        priceBTCNow = Number(response["data"]["quotes"][lenght(response["data"]["quotes"]) - 1]["c"])
+        alert(`le prix du BTC actuellement est de ${priceBTCNow}€`)
+      })
+
   }
 
   function Disconnect() {
@@ -133,11 +145,11 @@ function App() {
   return (
     <>
       {!token && <div onClick={BTCprice} style={{ textAlign: "left", marginTop: "1%", marginLeft: "1.5%" }}>
-        <input type="button" value="prix BTC" style={{ fontSize: "0.8em", color: "white", background: "none", width: "15%", minWidth: 93, maxWidth : 200, borderWidth: "3px", borderStyle: "solid", borderColor: "#eef7ff", borderRadius: "15px", outline: "none", cursor: "pointer" }} />
+        <input type="button" value="prix BTC" style={{ fontSize: "0.8em", color: "white", background: "none", width: "15%", minWidth: 93, maxWidth : 93, borderWidth: "3px", borderStyle: "solid", borderColor: "#eef7ff", borderRadius: "15px", outline: "none", cursor: "pointer" }} />
       </div>}
 
       {token && <div onClick={Disconnect} style={{ textAlign: "right", marginTop: "1%", marginRight: "1.5%" }}>
-        <input type="button" value="disconnect" style={{ fontSize: "0.8em", color: "white", background: "none", width: "15%", minWidth: 93, maxWidth : 200, borderWidth: "3px", borderStyle: "solid", borderColor: "#eef7ff", borderRadius: "15px", outline: "none", cursor: "pointer" }} />
+        <input type="button" value="disconnect" style={{ fontSize: "0.8em", color: "white", background: "none", width: "15%", minWidth: 93, maxWidth : 110, borderWidth: "3px", borderStyle: "solid", borderColor: "#eef7ff", borderRadius: "15px", outline: "none", cursor: "pointer" }} />
       </div>}
 
 
