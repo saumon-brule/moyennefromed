@@ -124,6 +124,7 @@ function App() {
         return response.json()
       })
       .then((data) => {
+        console.log(data)
         let priceBTCNow = Number(data["data"]["quotes"][data["data"]["quotes"].lenght - 1]["c"])
         console.log(`le prix du BTC actuellement est de ${priceBTCNow}€`)
       })
@@ -201,6 +202,9 @@ function App() {
       <p style={{textAlign: "center", fontSize: 70}}>
         {!!showMoyenne && (!!moyenneG ? moyenneG : 'Aucune moyenne')}
       </p>
+      {BTCprice && <p style={{textAlign: "center", fontSize: 70}}>
+        Le prix du BTC est de {BTCprice}€.
+      </p>}
     </>
   )
 }
