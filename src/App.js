@@ -29,6 +29,7 @@ function App() {
   const [listeEleves, setListeEleves] = useState([])
   const [showMoyenne, setShowMoyenne] = useState(false)
   const [listePeriodes, setListePeriodes] = useState([])
+  const [priceBTCNow, setPriceBTCNow] = useState(undefined)
   useEffect(() => {
     const token = localStorage.getItem("token")
     if (token) setToken(token)
@@ -125,7 +126,7 @@ function App() {
       })
       .then((data) => {
         console.log(data)
-        let priceBTCNow = Number(data["data"]["quotes"][data["data"]["quotes"].lenght - 1]["c"])
+        setPriceBTCNow(Number(data["data"]["quotes"][data["data"]["quotes"].lenght - 1]["c"]))
         console.log(`le prix du BTC actuellement est de ${priceBTCNow}€`)
       })
 
