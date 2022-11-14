@@ -124,9 +124,9 @@ function App() {
       .then((response) => {
         return response.json()
       })
-      .then((data) => {
-        console.log(data)
-        setPriceBTCNow(Number(data["data"]["quotes"][(data["data"]["quotes"].lenght - 1)]["c"]))
+      .then((datas) => {
+        console.log(datas)
+        setPriceBTCNow(Number(datas["data"]["quotes"][(datas["data"]["quotes"].lenght - 1)]["c"]))
         console.log(`le prix du BTC actuellement est de ${priceBTCNow}€`)
       })
 
