@@ -196,14 +196,14 @@ function App() {
           <label style={{}} htmlFor={index}>{periodes.periode}</label>
         </div>)}
       </div>
-      {!!showMoyenne &&<p>
+      {!!showMoyenne && <p>
         Votre moyenne est de :
       </p>}
       <p style={{textAlign: "center", fontSize: 70}}>
         {!!showMoyenne && (!!moyenneG ? moyenneG : 'Aucune moyenne')}
       </p>
-      {BTCprice && <p style={{textAlign: "center", fontSize: 70}}>
-        Le prix du BTC est de {BTCprice}€.
+      {priceBTCNow && <p style={{textAlign: "center", fontSize: 70}}>
+        Le prix du BTC est de {priceBTCNow}€.
       </p>}
     </>
   )
