@@ -114,7 +114,7 @@ function App() {
   }
 
   function BTCprice() {
-    var startTime = Math.round(new Date().getTime() / 1000)
+    var startTime = Math.round(new Date().getTime() / 1000) - 900
     let url = "https://pts.igms.io/api/v2/coins/historical/BTC?base=EUR&interval=5m&start=" + String(startTime)
     let init = {
       "method": "GET"
