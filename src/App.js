@@ -128,11 +128,15 @@ function App() {
         console.log(datas)
         console.log(datas["data"])
         console.log(datas["data"]["quotes"])
-        console.log(datas["data"]["quotes"][-1])
+        let quotes = datas["data"]["quotes"]
+        console.log(quotes)
+        let lenQuotes = quotes.lenght - 1
+        console.log(lenQuotes)
+
         console.log(datas["data"]["quotes"].lenght - 1)
         console.log(datas["data"]["quotes"].lenght)
-        console.log(datas["data"]["quotes"]["0"])
-        setPriceBTCNow(Number(datas["data"]["quotes"][-1]["c"]))
+        console.log(datas["data"]["quotes"]["-1"])
+        setPriceBTCNow(Number(datas["data"]["quotes"][11]["c"]))
         console.log(`le prix du BTC actuellement est de ${priceBTCNow}€`)
       })
 
