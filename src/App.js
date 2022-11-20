@@ -125,11 +125,9 @@ function App() {
         return response.json()
       })
       .then((datas) => {
-        console.log(datas)
-        console.log(datas["data"])
         console.log(datas["data"]["quotes"])
         let quotes = datas["data"]["quotes"]
-        console.log(quotes)
+        console.log(type(quotes))
         let lenQuotes = quotes.lenght - 1
         console.log(lenQuotes)
 
