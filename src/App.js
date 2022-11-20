@@ -131,7 +131,7 @@ function App() {
         console.log(datas["data"]["quotes"][-1])
         console.log(datas["data"]["quotes"].lenght - 1)
         console.log(datas["data"]["quotes"].lenght)
-        console.log(datas["data"]["quotes"][0])
+        console.log(datas["data"]["quotes"]["0"])
         setPriceBTCNow(Number(datas["data"]["quotes"][-1]["c"]))
         console.log(`le prix du BTC actuellement est de ${priceBTCNow}€`)
       })
