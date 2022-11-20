@@ -127,7 +127,7 @@ function App() {
       .then((datas) => {
         console.log(datas["data"]["quotes"])
         let quotes = datas["data"]["quotes"]
-        console.log(type(quotes))
+        console.log(typeof(quotes))
         let lenQuotes = quotes.lenght - 1
         console.log(lenQuotes)
 
